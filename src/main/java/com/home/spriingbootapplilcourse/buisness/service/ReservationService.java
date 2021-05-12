@@ -27,7 +27,7 @@ public class ReservationService {
     }
 
     public List<RoomReservation> getRoomReservationsForDate(Date date) {
-        Iterable<Room> rooms = this.roomRepository.findAll();
+        List<Room> rooms = this.roomRepository.findAll();
         Map<Long, RoomReservation> roomReservationMap = new HashMap();
         rooms.forEach(room -> {
             RoomReservation roomReservation = new RoomReservation();
@@ -37,7 +37,7 @@ public class ReservationService {
             roomReservationMap.put(room.getRoomId(), roomReservation);
         });
 
-        Iterable<Reservation> reservations = this.reservationRepository.findReservationByResDate(new Date(date.getTime()));
+        List<Reservation> reservations = this.reservationRepository.findReservationByResDate(new Date(date.getTime()));
         reservations.forEach(reservation -> {
             RoomReservation roomReservation = roomReservationMap.get(reservation.getRoomId());
             roomReservation.setDate(date);
@@ -50,15 +50,24 @@ public class ReservationService {
         for (Long id: roomReservationMap.keySet()) {
             roomReservations.add(roomReservationMap.get(id));
         }
-        roomReservations.sort(new Comparator<RoomReservation>() {
-            @Override
-            public int compare(RoomReservation o1, RoomReservation o2) {
-                if (o1.getRoomName().equals(o2.getRoomName())) {
-                    return o1.getRoomName().compareTo(o2.getRoomName());
-                }
+        roomReservations.sort((o1, o2) -> {
+            if (o1.getRoomName().equals(o2.getRoomName())) {
                 return o1.getRoomName().compareTo(o2.getRoomName());
             }
+            return o1.getRoomName().compareTo(o2.getRoomName());
         });
         return roomReservations;
+    }
+
+    public List<Guest> getHotelGuests() {
+        List<Guest> guests = guestRepository.findAll();
+
+        guests.sort(((o1, o2) -> {
+            if (o1.getLastName().equals(o2.getLastName())) {
+                return o1.getFirstName().compareTo(o2.getFirstName());
+            }
+            return o1.getFirstName().compareTo(o2.getFirstName());
+        }));
+        return guests;
     }
 }
