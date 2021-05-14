@@ -15,7 +15,7 @@ public class Room {
     private String roomName;
 
     @Column(name = "ROOM_NUMBER")
-    private String roomNamber;
+    private String roomNumber;
 
     @Column(name="BED_INFO")
     private String bedInfo;
@@ -36,12 +36,12 @@ public class Room {
         this.roomName = roomName;
     }
 
-    public String getRoomNamber() {
-        return roomNamber;
+    public String getRoomNumber() {
+        return roomNumber;
     }
 
-    public void setRoomNamber(String roomNamber) {
-        this.roomNamber = roomNamber;
+    public void setRoomNumber(String roomNamber) {
+        this.roomNumber = roomNamber;
     }
 
     public String getBedInfo() {

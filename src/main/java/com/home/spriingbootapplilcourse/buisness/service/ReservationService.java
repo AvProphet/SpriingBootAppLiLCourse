@@ -33,7 +33,7 @@ public class ReservationService {
             RoomReservation roomReservation = new RoomReservation();
             roomReservation.setRoomId(room.getRoomId());
             roomReservation.setRoomName(room.getRoomName());
-            roomReservation.setRoomNumber(room.getRoomNamber());
+            roomReservation.setRoomNumber(room.getRoomNumber());
             roomReservationMap.put(room.getRoomId(), roomReservation);
         });
 
